@@ -1,0 +1,42 @@
+
+<div *ngIf="story">
+    <h2><span>Story</span> {{story.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span>Title</span></dt>
+        <dd>
+            <span>{{story.title}}</span>
+        </dd>
+        <dt><span>Content</span></dt>
+        <dd>
+            <span>{{story.content}}</span>
+        </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{story.date | date:'medium'}}</span>
+        </dd>
+        <dt><span>Image Url</span></dt>
+        <dd>
+            <span>{{story.imageUrl}}</span>
+        </dd>
+        <dt><span>User</span></dt>
+        <dd>
+            {{story.user?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+    </button>
+</div>
