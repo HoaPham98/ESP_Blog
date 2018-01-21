@@ -39,13 +39,13 @@ export const storyPopupRoute: Routes = [
     },
     {
         path: 'story/:id/edit',
-        component: StoryPopupComponent,
+        component: StoryComponent,
         data: {
             authorities: ['ROLE_ADMIN'],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService],
-        outlet: 'popup'
+        // outlet: 'popup'
     },
     {
         path: 'story/:id/delete',

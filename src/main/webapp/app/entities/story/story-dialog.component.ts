@@ -57,6 +57,8 @@ export class StoryDialogComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.story.user = this.users[1];
+        this.story.date = '2018-01-21T11:11';
         if (this.story.id !== undefined) {
             this.subscribeToSaveResponse(
                 this.storyService.update(this.story));

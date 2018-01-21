@@ -6,7 +6,7 @@ import { SERVER_API_URL } from '../../app.constants';
 import { JhiDateUtils } from 'ng-jhipster';
 
 import { Story } from './story.model';
-import { ResponseWrapper, createRequestOption } from '../../shared';
+import { ResponseWrapper, createRequestOption, UserService } from '../../shared';
 
 @Injectable()
 export class StoryService {

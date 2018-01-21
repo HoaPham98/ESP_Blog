@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,11 +53,13 @@ public class StoryResource {
     @PostMapping("/stories")
     @Timed
     public ResponseEntity<Story> createStory(@Valid @RequestBody Story story) throws URISyntaxException {
-        log.debug("REST request to save Story : {}", story);
+        log.debug("REST request to save Story : {}", story.toString());
         if (story.getId() != null) {
             throw new BadRequestAlertException("A new story cannot already have an ID", ENTITY_NAME, "idexists");
         }
+        story.setDate(ZonedDateTime.now());
         Story result = storyRepository.save(story);
+        log.debug("Debug : {}", result);
         return ResponseEntity.created(new URI("/api/stories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
