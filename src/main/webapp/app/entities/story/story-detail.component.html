@@ -3,6 +3,21 @@
     <h2><span>Story</span> {{story.id}}</h2>
     <hr>
     <jhi-alert-error></jhi-alert-error>
+    <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+        </button>
+
+        <button type="button"
+                [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/edit'} }]"
+                replaceUrl="true"
+                queryParamsHandling="merge"
+                class="btn btn-primary">
+            <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+        </button>
+    </div>
     <dl class="row-md jh-entity-details">
         <dt><span>Title</span></dt>
         <dd>
@@ -25,18 +40,4 @@
             {{story.user?.login}}
         </dd>
     </dl>
-
-    <button type="submit"
-            (click)="previousState()"
-            class="btn btn-info">
-        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-    </button>
-
-    <button type="button"
-            [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/edit'} }]"
-            replaceUrl="true"
-            queryParamsHandling="merge"
-            class="btn btn-primary">
-        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-    </button>
 </div>

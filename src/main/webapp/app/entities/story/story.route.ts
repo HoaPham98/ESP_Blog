@@ -11,7 +11,7 @@ export const storyRoute: Routes = [
         path: 'story',
         component: StoryComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService]
@@ -19,7 +19,7 @@ export const storyRoute: Routes = [
         path: 'story/:id',
         component: StoryDetailComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: [],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService]
@@ -31,7 +31,7 @@ export const storyPopupRoute: Routes = [
         path: 'story-new',
         component: StoryPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService],
@@ -41,7 +41,7 @@ export const storyPopupRoute: Routes = [
         path: 'story/:id/edit',
         component: StoryPopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService],
@@ -51,7 +51,7 @@ export const storyPopupRoute: Routes = [
         path: 'story/:id/delete',
         component: StoryDeletePopupComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Stories'
         },
         canActivate: [UserRouteAccessService],
