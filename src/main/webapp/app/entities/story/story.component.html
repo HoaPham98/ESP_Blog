@@ -1,7 +1,19 @@
-<div>
+<div class="container-fluid">
+    <header class="intro-header" style="background-image: url('http://clean-blog-angular.hunor.me/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">Clone by PQH</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <h2>
-        <span>Stories</span>
-        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-story" [routerLink]="['/', { outlets: { popup: ['story-new'] } }]">
+        <button *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn btn-primary float-right jh-create-entity create-story" [routerLink]="['../story-new']">
             <span class="fa fa-plus"></span>
             <span >
             Create new Story
@@ -9,36 +21,37 @@
         </button>
     </h2>
     <jhi-alert></jhi-alert>
-    <div class="row">
-    </div>
     <br/>
-    <div class="table-responsive" *ngIf="stories">
-        <table class="table table-striped">
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let story of stories ;trackBy: trackId">
-                <h2 [routerLink]="['../story', story.id ]">{{story.title}}</h2>
-                <small>Posted on {{story.date | date:'short'}} by {{story.user?.login}}</small>
-                <div [innerHTML]="story.content"></div>
-                <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn-group mb-2 mt-1">
-                    <button type="submit"
-                            [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/edit'} }]"
-                            replaceUrl="true"
-                            queryParamsHandling="merge"
-                            class="btn btn-primary btn-sm">
-                        <span class="fa fa-pencil"></span>
-                        <span class="d-none d-md-inline">Edit</span>
-                    </button>
-                    <button type="submit"
-                            [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/delete'} }]"
-                            replaceUrl="true"
-                            queryParamsHandling="merge"
-                            class="btn btn-danger btn-sm">
-                        <span class="fa fa-remove"></span>
-                        <span class="d-none d-md-inline">Delete</span>
-                    </button>
-                </div>
-            </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" *ngIf="stories">
+                <table class="table">
+                    <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+                    <tr *ngFor="let story of stories ;trackBy: trackId">
+                        <h2 [routerLink]="['../story', story.id ]"><a href="javascript:void(0);">{{ story.title }}</a></h2>
+                        <small>Posted on {{story.date | date:'short'}} by {{story.user?.login}}</small>
+                        <div [innerHTML]="story.content"></div>
+                        <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn-group mb-2 mt-1">
+                            <button type="submit"
+                                    [routerLink]="['../story/'+story.id+'/edit']"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+                            <button type="submit"
+                                    [routerLink]="['/', { outlets: { popup: 'story/'+ story.id + '/delete'} }]"
+                                    queryParamsHandling="merge"
+                                    class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                        <hr>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>

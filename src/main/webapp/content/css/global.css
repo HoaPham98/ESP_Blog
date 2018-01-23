@@ -2,23 +2,49 @@
 Bootstrap tweaks
 ===============================================================*/
 
-body, h1, h2, h3, h4 {
-    font-weight: 300;
-}
 
 body {
-    background: #e4e5e6;
-}
-
-a {
-    color: #533f03;
-    font-weight: bold;
-}
-
-a:hover {
-    color: #533f03;
-    font-weight: bold;
-}
+    font-family: 'Lora', 'Times New Roman', serif;
+    font-size: 20px;
+    color: #404040;
+  }
+  p {
+    line-height: 1.5;
+    margin: 30px 0;
+  }
+  p a {
+    text-decoration: underline;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 800;
+  }
+  a {
+    color: #404040;
+  }
+  a:hover,
+  a:focus {
+    color: #0085a1;
+  }
+  a img:hover,
+  a img:focus {
+    cursor: zoom-in;
+  }
+  blockquote {
+    color: #808080;
+    font-style: italic;
+  }
+  hr.small {
+    max-width: 100px;
+    margin: 15px auto;
+    border-width: 4px;
+    border-color: white;
+  }
 
 /* ==========================================================================
 Browser Upgrade Prompt
@@ -45,9 +71,8 @@ Generic styles
 
 /* other generic styles */
 
-.jh-card {
-    padding: 1.5%;
-    margin-top: 20px;
+.jh-post {
+    margin: 0 auto;
     border: none;
 }
 
@@ -209,3 +234,86 @@ ui bootstrap tweaks
  }
 
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+/* Custome */
+.intro-header {
+    background-color: #808080;
+    background: no-repeat center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    margin-bottom: 50px;
+}
+
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+    padding: 100px 0 50px;
+    color: white;
+}
+@media only screen and (min-width: 768px) {
+.intro-header .site-heading,
+.intro-header .post-heading,
+.intro-header .page-heading {
+    padding: 150px 0;
+}
+}
+.intro-header .site-heading,
+.intro-header .page-heading {
+    text-align: center;
+}
+.intro-header .site-heading h1,
+.intro-header .page-heading h1 {
+    margin: auto;
+    margin-top: 0;
+    font-size: 50px;
+}
+.intro-header .site-heading .subheading,
+.intro-header .page-heading .subheading {
+    font-size: 24px;
+    line-height: 1.1;
+    display: block;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 300;
+    margin: 10px 0 0;
+}
+@media only screen and (min-width: 768px) {
+.intro-header .site-heading h1,
+.intro-header .page-heading h1 {
+    margin: auto;
+    font-size: 80px;
+}
+}
+.intro-header .post-heading h1 {
+    font-size: 35px;
+}
+.intro-header .post-heading .subheading,
+.intro-header .post-heading .meta {
+    line-height: 1.1;
+    display: block;
+}
+.intro-header .post-heading .subheading {
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 24px;
+    margin: 10px 0 30px;
+    font-weight: 600;
+}
+.intro-header .post-heading .meta {
+    font-family: 'Lora', 'Times New Roman', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 20px;
+}
+.intro-header .post-heading .meta a {
+    color: white;
+}
+@media only screen and (min-width: 768px) {
+.intro-header .post-heading h1 {
+    font-size: 55px;
+}
+.intro-header .post-heading .subheading {
+    font-size: 30px;
+}
+}

@@ -46,6 +46,13 @@ export class CommentService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
+    getByStory(story_id): Observable<Comment[]> {
+        return this.http.get(`${this.resourceUrl}/story/${story_id}`).map((res: Response) => {
+            const jsonResponse = res.json();
+            return this.convertItemsFromServer(jsonResponse);
+        })
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         const result = [];
@@ -63,6 +70,12 @@ export class CommentService {
         return entity;
     }
 
+    /**
+     * Convert a returned JSON object to Comment Array.
+     */
+    private convertItemsFromServer(res: any): Comment[] {
+        return res;
+    }
     /**
      * Convert a Comment to a JSON which can be sent to the server.
      */

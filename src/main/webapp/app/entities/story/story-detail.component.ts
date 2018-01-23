@@ -5,6 +5,8 @@ import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { Story } from './story.model';
 import { StoryService } from './story.service';
+import { CommentService } from '../comment/comment.service'
+import { Comment} from '../comment';
 
 @Component({
     selector: 'jhi-story-detail',
@@ -15,12 +17,14 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
     story: Story;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    comments: Comment[]
 
     constructor(
         private eventManager: JhiEventManager,
         private dataUtils: JhiDataUtils,
         private storyService: StoryService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private commentService: CommentService,
     ) {
     }
 
@@ -34,6 +38,7 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
     load(id) {
         this.storyService.find(id).subscribe((story) => {
             this.story = story;
+            this.getAllComments();
         });
     }
     byteSize(field) {
@@ -57,5 +62,12 @@ export class StoryDetailComponent implements OnInit, OnDestroy {
             'storyListModification',
             (response) => this.load(this.story.id)
         );
+    }
+
+    getAllComments() {
+        this.commentService.getByStory(this.story.id).subscribe((cmts) =>{
+            this.comments = cmts;
+            console.log(this.comments);
+        })
     }
 }

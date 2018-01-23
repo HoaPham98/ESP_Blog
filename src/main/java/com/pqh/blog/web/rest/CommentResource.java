@@ -125,4 +125,19 @@ public class CommentResource {
         commentRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    /**
+     * GET  /comments/:story_id : get the "id" comment.
+     *
+     * @param story_id the id of the comment to retrieve
+     * @return the ResponseEntity with status 200 (OK) and with body the comment, or with status 404 (Not Found)
+     */
+    @GetMapping("/comments/story/{story_id}")
+    @Timed
+    public ResponseEntity<List<Comment>> getCommentByStory(@PathVariable Long story_id) {
+        log.debug("REST request to get Comment : {}", story_id);
+        List<Comment> cmts = this.commentRepository.findByStoryID(story_id);
+
+        return new ResponseEntity<List<Comment> >(cmts,HttpStatus.OK);
+    }
 }

@@ -14,7 +14,6 @@ export class StoryService {
     private resourceUrl =  SERVER_API_URL + 'api/stories';
 
     constructor(private http: Http, private dateUtils: JhiDateUtils) { }
-
     create(story: Story): Observable<Story> {
         const copy = this.convert(story);
         return this.http.post(this.resourceUrl, copy).map((res: Response) => {
