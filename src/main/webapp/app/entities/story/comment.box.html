@@ -1,0 +1,26 @@
+<div class="form-group">
+    <div *jhiHasAnyAuthority="'ROLE_USER'">
+    <h4>Leave a Replay</h4>
+        <form #commentForm="ngForm" (ngSubmit)="click()">
+            <div class="form-group">
+                <input type="text" class="form-control" name="content" [(ngModel)] = "comment.content" required/>
+                <br/>
+                <button type="submit" [disabled]="commentForm.form.invalid || isSaving" class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                </button>
+                <br/>
+            </div>
+        </form>
+        <hr>
+    </div>
+    <h4>Comments</h4>
+    <ul style="list-style-type:none">
+        <li *ngFor="let cmt of comments">
+            <span>{{cmt.user.firstName}} {{cmt.user.lastName}} said:</span>
+            <span>{{cmt.content}}</span>
+            <a href=""><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
+            <hr>
+        </li>
+    </ul>
+</div>
+

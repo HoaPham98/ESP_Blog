@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 
-import { HomeComponent } from './';
 import { StoryComponent } from '../entities/story'
 
 export const HOME_ROUTE: Route = {

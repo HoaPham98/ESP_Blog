@@ -34,9 +34,9 @@
             </dd>
         </dl>
         <hr>
-        <h4>Comments</h4>
-        <div *jhiHasAnyAuthority="'ROLE_USER'">
-            <span>Add your comment</span>
+        <div>
+            <jhi-comment-box [story] = "story">
+            </jhi-comment-box>
         </div>
     </div>
 </div>

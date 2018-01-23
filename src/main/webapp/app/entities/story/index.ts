@@ -6,3 +6,4 @@ export * from './story-delete-dialog.component';
 export * from './story-detail.component';
 export * from './story.component';
 export * from './story.route';
+export * from './comment.box'

@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 
 import { BlogSharedModule } from '../../shared';
 import { BlogAdminModule } from '../../admin/admin.module';
+
 import {
     StoryService,
     StoryPopupService,
@@ -14,6 +15,7 @@ import {
     StoryDeleteDialogComponent,
     storyRoute,
     storyPopupRoute,
+    CommentBoxComponent,
 } from './';
 
 const ENTITY_STATES = [
@@ -25,7 +27,7 @@ const ENTITY_STATES = [
     imports: [
         BlogSharedModule,
         BlogAdminModule,
-        RouterModule.forChild(ENTITY_STATES)
+        RouterModule.forChild(ENTITY_STATES),
     ],
     declarations: [
         StoryComponent,
@@ -34,6 +36,7 @@ const ENTITY_STATES = [
         StoryDeleteDialogComponent,
         StoryPopupComponent,
         StoryDeletePopupComponent,
+        CommentBoxComponent,
     ],
     entryComponents: [
         StoryComponent,
@@ -41,6 +44,7 @@ const ENTITY_STATES = [
         StoryPopupComponent,
         StoryDeleteDialogComponent,
         StoryDeletePopupComponent,
+        CommentBoxComponent,
     ],
     providers: [
         StoryService,

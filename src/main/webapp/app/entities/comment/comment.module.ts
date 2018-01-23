@@ -7,6 +7,7 @@ import {
     CommentService,
     CommentPopupService,
     CommentComponent,
+    CommentBoxComponent,
     CommentDetailComponent,
     CommentDialogComponent,
     CommentPopupComponent,

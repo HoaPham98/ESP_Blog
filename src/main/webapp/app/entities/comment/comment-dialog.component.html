@@ -31,13 +31,6 @@
                 <option [ngValue]="storyOption.id === comment.story?.id ? comment.story : storyOption" *ngFor="let storyOption of stories; trackBy: trackStoryById">{{storyOption.id}}</option>
             </select>
         </div>
-        <div class="form-group">
-            <label class="form-control-label" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" [(ngModel)]="comment.user" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === comment.user?.id ? comment.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
