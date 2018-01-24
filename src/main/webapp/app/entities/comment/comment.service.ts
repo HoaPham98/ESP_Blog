@@ -53,6 +53,10 @@ export class CommentService {
         })
     }
 
+    deleteByStory(story_id): Observable<Response> {
+        return this.http.delete(`${this.resourceUrl}/story/${story_id}`);
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         const result = [];

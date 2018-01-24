@@ -16,7 +16,10 @@ import {
     storyRoute,
     storyPopupRoute,
     CommentBoxComponent,
+    CkeditorComponent,
 } from './';
+
+import { CKEditorModule } from 'ng2-ckeditor';
 
 const ENTITY_STATES = [
     ...storyRoute,
@@ -28,6 +31,7 @@ const ENTITY_STATES = [
         BlogSharedModule,
         BlogAdminModule,
         RouterModule.forChild(ENTITY_STATES),
+        CKEditorModule,
     ],
     declarations: [
         StoryComponent,
@@ -37,6 +41,7 @@ const ENTITY_STATES = [
         StoryPopupComponent,
         StoryDeletePopupComponent,
         CommentBoxComponent,
+        CkeditorComponent,
     ],
     entryComponents: [
         StoryComponent,

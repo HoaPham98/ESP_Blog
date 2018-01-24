@@ -109,6 +109,11 @@ export class StoryDialogComponent implements OnInit {
     trackUserById(index: number, item: User) {
         return item.id;
     }
+
+    onSave(content: any) {
+        this.story.content = content;
+        console.log('Worked');
+    }
 }
 
 @Component({

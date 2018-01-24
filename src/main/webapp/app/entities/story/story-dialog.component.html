@@ -1,4 +1,17 @@
 <div>
+    <header class="intro-header" style="background-image: url('http://clean-blog-angular.hunor.me/img/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Clean Blog</h1>
+                        <hr class="small">
+                        <span class="subheading">Clone by PQH</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
     <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
 
         <div class="modal-header">
@@ -20,12 +33,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-control-label" for="field_content">Content</label>
-                <textarea class="form-control" name="content" id="field_content"
-                    [(ngModel)]="story.content" required></textarea>
+                <label class="form-control-label">Content</label>
+                <jhi-ckeditor
+                    (onSave)="onSave($event)">
+                </jhi-ckeditor>
                 <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
                     <small class="form-text text-danger"
-                       [hidden]="!editForm.controls.content?.errors?.required">
+                       [hidden]="!editForm.controls.content?.errors?.required || !story.content">
                        This field is required.
                     </small>
                 </div>
@@ -35,13 +49,18 @@
                 <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
                     [(ngModel)]="story.imageUrl" />
             </div>
+            <hr>
+            <div>
+                <h5>Preview</h5>
+                <div [innerHTML]="story.content"></div>
+            </div>
 
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
                 <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
             </button>
-            <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <button type="submit" [disabled]="editForm.form.invalid || isSaving || !story.content " class="btn btn-primary">
                 <span class="fa fa-save"></span>&nbsp;<span>Save</span>
             </button>
         </div>

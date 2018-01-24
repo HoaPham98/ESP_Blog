@@ -1,11 +1,11 @@
 <div *ngIf="story">
-    <header class="intro-header" style="background-image: url('http://clean-blog-angular.hunor.me/img/home-bg.jpg')">
+    <header class="intro-header" style="background-image: url('http://clean-blog-angular.hunor.me/img/home-bg.jpg')" >
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class = "post-heading">
                         <h1>{{story.title}}</h1>
-                        <span class="meta">Posted on {{story.date | date:'short'}} by {{story.user?.login}}</span>
+                        <span class="meta">Posted on {{story.date | date:'short'}} by {{story.user?.firstName}} {{story.user.lastName}}</span>
                     </div>
                 </div>
             </div>
@@ -13,30 +13,33 @@
     </header>
     <jhi-alert-error></jhi-alert-error>
     <div class="container">
-        <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
-            </button>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info">
+                        <span class="fa fa-arrow-left"></span>&nbsp;<span> Back</span>
+                    </button>
 
-            <button type="button"
-                    [routerLink]="['../../story/'+ story.id + '/edit']"
-                    queryParamsHandling="merge"
-                    class="btn btn-primary">
-                <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
-            </button>
-        </div>
-        <dl class="row-md jh-entity-details">
-            <dt><span>Content</span></dt>
-            <dd>
-                <span>{{story.content}}</span>
-            </dd>
-        </dl>
-        <hr>
-        <div>
-            <jhi-comment-box [story] = "story">
-            </jhi-comment-box>
+                    <button type="button"
+                            [routerLink]="['../../story/'+ story.id + '/edit']"
+                            queryParamsHandling="merge"
+                            class="btn btn-primary">
+                        <span class="fa fa-pencil"></span>&nbsp;<span> Edit</span>
+                    </button>
+                </div>
+                <dl class="row-md jh-entity-details">
+                    <dd>
+                        <span [innerHTML] = "story.content"></span>
+                    </dd>
+                </dl>
+                <hr>
+                <div>
+                    <jhi-comment-box [story] = "story">
+                    </jhi-comment-box>
+                </div>
+            </div>
         </div>
     </div>
 </div>

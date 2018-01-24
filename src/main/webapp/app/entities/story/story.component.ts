@@ -22,6 +22,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     queryCount: any;
     reverse: any;
     totalItems: number;
+    currentDate: any;
 
     constructor(
         private storyService: StoryService,
@@ -39,6 +40,7 @@ export class StoryComponent implements OnInit, OnDestroy {
         };
         this.predicate = 'id';
         this.reverse = true;
+        this.currentDate = new Date();
     }
 
     loadAll() {
@@ -95,6 +97,13 @@ export class StoryComponent implements OnInit, OnDestroy {
             result.push('id');
         }
         return result;
+    }
+
+    limitHtml(content: any, limit: number): string {
+        const changedString = String(content).replace(/<[^>]+>/gm, '');
+        const length = changedString.length;
+
+        return changedString.length > limit ? changedString.substr(0, limit - 1) + '...' : changedString;
     }
 
     private onSuccess(data, headers) {

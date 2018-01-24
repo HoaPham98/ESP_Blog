@@ -16,8 +16,8 @@
     <h4>Comments</h4>
     <ul style="list-style-type:none">
         <li *ngFor="let cmt of comments">
-            <span>{{cmt.user.firstName}} {{cmt.user.lastName}} said:</span>
-            <span>{{cmt.content}}</span>
+            <span>{{cmt.user.login}} said: </span>
+            <span></br>{{cmt.content}}</span>
             <a href=""><span class="glyphicon glyphicon-trash" style="color:red; float:right;"></span></a>
             <hr>
         </li>

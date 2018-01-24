@@ -103,8 +103,17 @@ Generic styles
     opacity: 1;
 }
 
-.footer {
-    border-top: 1px solid rgba(0,0,0,.125);
+footer {
+    padding: 50px 0 65px;
+}
+footer .list-inline {
+    margin: 0;
+    padding: 0;
+}
+footer .copyright {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 0;
 }
 
 /* ==========================================================================
@@ -316,4 +325,8 @@ ui bootstrap tweaks
 .intro-header .post-heading .subheading {
     font-size: 30px;
 }
+}
+
+.jh-form {
+    margin-top: 50px;
 }

@@ -1,6 +1,8 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
+import { HeaderComponent } from '../layouts/header/header.component';
+
 import {
     BlogSharedLibsModule,
     BlogSharedCommonModule,

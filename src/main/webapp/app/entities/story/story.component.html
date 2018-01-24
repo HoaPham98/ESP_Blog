@@ -1,12 +1,12 @@
-<div class="container-fluid">
+<div>
     <header class="intro-header" style="background-image: url('http://clean-blog-angular.hunor.me/img/home-bg.jpg')">
         <div class="container">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Clean Blog</h1>
+                    <div class="site-heading">
+                        <h1>ESP Blog</h1>
                         <hr class="small">
-                        <span class="subheading">Clone by PQH</span>
+                        <span class="subheading">{{currentDate | date:"EEEE, dd/MM/yyyy" }}</span>
                     </div>
                 </div>
             </div>
@@ -23,14 +23,14 @@
     <jhi-alert></jhi-alert>
     <br/>
     <div class="container">
-        <div class="row">
+        <div class="row justify-content-center">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" *ngIf="stories">
                 <table class="table">
                     <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                     <tr *ngFor="let story of stories ;trackBy: trackId">
                         <h2 [routerLink]="['../story', story.id ]"><a href="javascript:void(0);">{{ story.title }}</a></h2>
-                        <small>Posted on {{story.date | date:'short'}} by {{story.user?.login}}</small>
-                        <div [innerHTML]="story.content"></div>
+                        <small>Posted on {{story.date | date:'short'}} by {{story.user?.firstName}} {{story.user.lastName}}</small>
+                        <div [innerHTML]=" limitHtml(story.content,230)"></div>
                         <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn-group mb-2 mt-1">
                             <button type="submit"
                                     [routerLink]="['../story/'+story.id+'/edit']"

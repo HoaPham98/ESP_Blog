@@ -7,6 +7,7 @@ import { JhiEventManager } from 'ng-jhipster';
 import { Story } from './story.model';
 import { StoryPopupService } from './story-popup.service';
 import { StoryService } from './story.service';
+import {CommentService} from '../comment';
 
 @Component({
     selector: 'jhi-story-delete-dialog',
@@ -19,7 +20,8 @@ export class StoryDeleteDialogComponent {
     constructor(
         private storyService: StoryService,
         public activeModal: NgbActiveModal,
-        private eventManager: JhiEventManager
+        private eventManager: JhiEventManager,
+        public commentService: CommentService,
     ) {
     }
 
@@ -28,12 +30,14 @@ export class StoryDeleteDialogComponent {
     }
 
     confirmDelete(id: number) {
-        this.storyService.delete(id).subscribe((response) => {
-            this.eventManager.broadcast({
-                name: 'storyListModification',
-                content: 'Deleted an story'
+        this.commentService.deleteByStory(id).subscribe((respone) => {
+            this.storyService.delete(id).subscribe((response) => {
+                this.eventManager.broadcast({
+                    name: 'storyListModification',
+                    content: 'Deleted an story'
+                });
+                this.activeModal.dismiss(true);
             });
-            this.activeModal.dismiss(true);
         });
     }
 }
