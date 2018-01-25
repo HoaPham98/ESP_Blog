@@ -35,7 +35,8 @@
             <div class="form-group">
                 <label class="form-control-label">Content</label>
                 <jhi-ckeditor
-                    (onSave)="onSave($event)">
+                    (onSave)="onSave($event)"
+                    [story]="story">
                 </jhi-ckeditor>
                 <div [hidden]="!(editForm.controls.content?.dirty && editForm.controls.content?.invalid)">
                     <small class="form-text text-danger"
@@ -49,20 +50,19 @@
                 <input type="text" class="form-control" name="imageUrl" id="field_imageUrl"
                     [(ngModel)]="story.imageUrl" />
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+                    <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" [disabled]="editForm.form.invalid || isSaving || !story.content " class="btn btn-primary">
+                    <span class="fa fa-save"></span>&nbsp;<span>Save</span>
+                </button>
+            </div>
             <hr>
             <div>
                 <h5>Preview</h5>
                 <div [innerHTML]="story.content"></div>
             </div>
-
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
-                <span class="fa fa-ban"></span>&nbsp;<span>Cancel</span>
-            </button>
-            <button type="submit" [disabled]="editForm.form.invalid || isSaving || !story.content " class="btn btn-primary">
-                <span class="fa fa-save"></span>&nbsp;<span>Save</span>
-            </button>
         </div>
     </form>
 </div>

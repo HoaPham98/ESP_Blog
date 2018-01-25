@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Story} from './story.model';
 
 @Component({
     selector: 'jhi-ckeditor',
@@ -17,17 +18,23 @@ import {Component, EventEmitter, Output} from '@angular/core';
   </ckeditor>
   `
 })
-export class CkeditorComponent {
+export class CkeditorComponent implements OnInit {
 
     @Output() onSave = new EventEmitter<any>();
+    @Input() story: Story;
+
     ckeditorContent: any;
 
     ckEditorConfig: {} = {
-    'removeButtons': 'Save'
+        'removeButtons': 'Save'
     };
 
     constructor() {
-        this.ckeditorContent = `<p>My HTML</p>`;
+
+    }
+
+    ngOnInit() {
+        this.ckeditorContent = this.story.content;
     }
 
     save() {

@@ -3,7 +3,6 @@ import { Routes } from '@angular/router';
 import { UserRouteAccessService } from '../../shared';
 import { StoryComponent } from './story.component';
 import { StoryDetailComponent } from './story-detail.component';
-import { StoryPopupComponent } from './story-dialog.component';
 import { StoryDeletePopupComponent } from './story-delete-dialog.component';
 import { StoryDialogComponent } from '../story';
 
