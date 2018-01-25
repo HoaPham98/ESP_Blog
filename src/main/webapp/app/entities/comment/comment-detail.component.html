@@ -8,6 +8,10 @@
         <dd>
             <span>{{comment.content}}</span>
         </dd>
+        <dt><span>Date</span></dt>
+        <dd>
+            <span>{{comment.date | date:'medium'}}</span>
+        </dd>
         <dt><span>Story</span></dt>
         <dd>
             <div *ngIf="comment.story">

@@ -1,6 +1,7 @@
 import { Injectable, Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 import { Comment } from './comment.model';
 import { CommentService } from './comment.service';
 
@@ -9,6 +10,7 @@ export class CommentPopupService {
     private ngbModalRef: NgbModalRef;
 
     constructor(
+        private datePipe: DatePipe,
         private modalService: NgbModal,
         private router: Router,
         private commentService: CommentService
@@ -26,6 +28,8 @@ export class CommentPopupService {
 
             if (id) {
                 this.commentService.find(id).subscribe((comment) => {
+                    comment.date = this.datePipe
+                        .transform(comment.date, 'yyyy-MM-ddTHH:mm:ss');
                     this.ngbModalRef = this.commentModalRef(component, comment);
                     resolve(this.ngbModalRef);
                 });

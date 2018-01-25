@@ -7,6 +7,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -26,6 +27,10 @@ public class Comment implements Serializable {
     @NotNull
     @Column(name = "content", nullable = false)
     private String content;
+
+    @NotNull
+    @Column(name = "jhi_date", nullable = false)
+    private ZonedDateTime date;
 
     @ManyToOne
     private Story story;
@@ -53,6 +58,19 @@ public class Comment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public ZonedDateTime getDate() {
+        return date;
+    }
+
+    public Comment date(ZonedDateTime date) {
+        this.date = date;
+        return this;
+    }
+
+    public void setDate(ZonedDateTime date) {
+        this.date = date;
     }
 
     public Story getStory() {
@@ -107,6 +125,7 @@ public class Comment implements Serializable {
         return "Comment{" +
             "id=" + getId() +
             ", content='" + getContent() + "'" +
+            ", date='" + getDate() + "'" +
             "}";
     }
 }

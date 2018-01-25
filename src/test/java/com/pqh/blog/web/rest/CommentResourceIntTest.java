@@ -21,8 +21,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.ZoneOffset;
+import java.time.ZoneId;
 import java.util.List;
 
+import static com.pqh.blog.web.rest.TestUtil.sameInstant;
 import static com.pqh.blog.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
@@ -40,6 +45,9 @@ public class CommentResourceIntTest {
 
     private static final String DEFAULT_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_CONTENT = "BBBBBBBBBB";
+
+    private static final ZonedDateTime DEFAULT_DATE = ZonedDateTime.ofInstant(Instant.ofEpochMilli(0L), ZoneOffset.UTC);
+    private static final ZonedDateTime UPDATED_DATE = ZonedDateTime.now(ZoneId.systemDefault()).withNano(0);
 
     @Autowired
     private CommentRepository commentRepository;
@@ -79,7 +87,8 @@ public class CommentResourceIntTest {
      */
     public static Comment createEntity(EntityManager em) {
         Comment comment = new Comment()
-            .content(DEFAULT_CONTENT);
+            .content(DEFAULT_CONTENT)
+            .date(DEFAULT_DATE);
         return comment;
     }
 
@@ -104,6 +113,7 @@ public class CommentResourceIntTest {
         assertThat(commentList).hasSize(databaseSizeBeforeCreate + 1);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getContent()).isEqualTo(DEFAULT_CONTENT);
+        assertThat(testComment.getDate()).isEqualTo(DEFAULT_DATE);
     }
 
     @Test
@@ -145,6 +155,24 @@ public class CommentResourceIntTest {
 
     @Test
     @Transactional
+    public void checkDateIsRequired() throws Exception {
+        int databaseSizeBeforeTest = commentRepository.findAll().size();
+        // set the field null
+        comment.setDate(null);
+
+        // Create the Comment, which fails.
+
+        restCommentMockMvc.perform(post("/api/comments")
+            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .content(TestUtil.convertObjectToJsonBytes(comment)))
+            .andExpect(status().isBadRequest());
+
+        List<Comment> commentList = commentRepository.findAll();
+        assertThat(commentList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllComments() throws Exception {
         // Initialize the database
         commentRepository.saveAndFlush(comment);
@@ -154,7 +182,8 @@ public class CommentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(comment.getId().intValue())))
-            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())));
+            .andExpect(jsonPath("$.[*].content").value(hasItem(DEFAULT_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].date").value(hasItem(sameInstant(DEFAULT_DATE))));
     }
 
     @Test
@@ -168,7 +197,8 @@ public class CommentResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(comment.getId().intValue()))
-            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()));
+            .andExpect(jsonPath("$.content").value(DEFAULT_CONTENT.toString()))
+            .andExpect(jsonPath("$.date").value(sameInstant(DEFAULT_DATE)));
     }
 
     @Test
@@ -191,7 +221,8 @@ public class CommentResourceIntTest {
         // Disconnect from session so that the updates on updatedComment are not directly saved in db
         em.detach(updatedComment);
         updatedComment
-            .content(UPDATED_CONTENT);
+            .content(UPDATED_CONTENT)
+            .date(UPDATED_DATE);
 
         restCommentMockMvc.perform(put("/api/comments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -203,6 +234,7 @@ public class CommentResourceIntTest {
         assertThat(commentList).hasSize(databaseSizeBeforeUpdate);
         Comment testComment = commentList.get(commentList.size() - 1);
         assertThat(testComment.getContent()).isEqualTo(UPDATED_CONTENT);
+        assertThat(testComment.getDate()).isEqualTo(UPDATED_DATE);
     }
 
     @Test
