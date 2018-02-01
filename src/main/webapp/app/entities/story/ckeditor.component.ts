@@ -7,14 +7,8 @@ import {Story} from './story.model';
   <ckeditor
     [(ngModel)]="ckeditorContent"
     skin="moono-lisa"
+    (change)="onChange($event)"
     [config]="ckEditorConfig">
-      <ckbutton [name]="'saveButton'"
-                [command]="'saveCmd'"
-                (click)="save($event)"
-                [icon]="'http://icons.iconarchive.com/icons/custom-icon-design/mono-general-1/24/save-icon.png'"
-                [label]="'Save Document'"
-                [toolbar]="'document,1'">
-      </ckbutton>
   </ckeditor>
   `
 })
@@ -39,5 +33,9 @@ export class CkeditorComponent implements OnInit {
 
     save() {
         this.onSave.emit(this.ckeditorContent);
+    }
+
+    onChange() {
+        this.save();
     }
 }

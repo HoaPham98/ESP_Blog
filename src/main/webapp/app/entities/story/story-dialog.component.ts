@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Response } from '@angular/http';
 import { DatePipe } from '@angular/common';
 
@@ -34,7 +34,8 @@ export class StoryDialogComponent implements OnInit {
         private storyService: StoryService,
         private userService: UserService,
         private eventManager: JhiEventManager,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private router: Router
     ) {
     }
 
@@ -70,7 +71,7 @@ export class StoryDialogComponent implements OnInit {
     }
 
     clear() {
-        window.history.back()
+        this.router.navigate(['/story']);
     }
 
     save() {
@@ -95,7 +96,7 @@ export class StoryDialogComponent implements OnInit {
     private onSaveSuccess(result: Story) {
         this.eventManager.broadcast({ name: 'storyListModification', content: 'OK'});
         this.isSaving = false;
-        window.history.back();
+        this.router.navigate(['/story']);
     }
 
     private onSaveError() {

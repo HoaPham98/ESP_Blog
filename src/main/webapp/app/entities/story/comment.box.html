@@ -1,5 +1,5 @@
 <div class="form-group">
-    <div *jhiHasAnyAuthority="'ROLE_USER'">
+    <div *ngIf="user">
     <h4>Leave a Replay</h4>
         <form #commentForm="ngForm" (ngSubmit)="click()">
             <div class="form-group">

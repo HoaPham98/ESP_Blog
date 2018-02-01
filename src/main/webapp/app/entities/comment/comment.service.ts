@@ -3,6 +3,8 @@ import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { SERVER_API_URL } from '../../app.constants';
 
+import { JhiDateUtils } from 'ng-jhipster';
+
 import { Comment } from './comment.model';
 import { ResponseWrapper, createRequestOption } from '../../shared';
 
@@ -11,7 +13,7 @@ export class CommentService {
 
     private resourceUrl =  SERVER_API_URL + 'api/comments';
 
-    constructor(private http: Http) { }
+    constructor(private http: Http, private dateUtils: JhiDateUtils) { }
 
     create(comment: Comment): Observable<Comment> {
         const copy = this.convert(comment);
@@ -71,6 +73,8 @@ export class CommentService {
      */
     private convertItemFromServer(json: any): Comment {
         const entity: Comment = Object.assign(new Comment(), json);
+        entity.date = this.dateUtils
+            .convertDateTimeFromServer(json.date);
         return entity;
     }
 
@@ -85,6 +89,7 @@ export class CommentService {
      */
     private convert(comment: Comment): Comment {
         const copy: Comment = Object.assign({}, comment);
+        copy.date = this.dateUtils.toDate(comment.date);
         return copy;
     }
 }
