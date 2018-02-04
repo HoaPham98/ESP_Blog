@@ -129,4 +129,13 @@ public class StoryResource {
         storyRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
+
+    @GetMapping("/stories/popular")
+    @Timed
+    public ResponseEntity<List<Story>> getPopularStories() {
+        log.debug("REST request to get popular stories : ");
+        List<Story> stories = this.storyRepository.getPopularStories();
+
+        return new ResponseEntity<>(stories,HttpStatus.OK);
+    }
 }

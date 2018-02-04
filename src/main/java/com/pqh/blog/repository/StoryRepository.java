@@ -18,4 +18,7 @@ public interface StoryRepository extends JpaRepository<Story, Long> {
     @Query("select story from Story story where story.user.login = ?#{principal.username}")
     List<Story> findByUserIsCurrentUser();
 
+    @Query("select story from Story story order by story.date desc")
+    List<Story> getPopularStories();
+
 }

@@ -23,6 +23,8 @@ export class StoryComponent implements OnInit, OnDestroy {
     reverse: any;
     totalItems: number;
     currentDate: any;
+    popularStories: Story[];
+    limitSize = 5;
 
     constructor(
         private storyService: StoryService,
@@ -33,6 +35,7 @@ export class StoryComponent implements OnInit, OnDestroy {
         private principal: Principal
     ) {
         this.stories = [];
+        this.popularStories = [];
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.page = 0;
         this.links = {
@@ -57,6 +60,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     reset() {
         this.page = 0;
         this.stories = [];
+        this.popularStories = [];
         this.loadAll();
     }
 
@@ -92,10 +96,7 @@ export class StoryComponent implements OnInit, OnDestroy {
     }
 
     sort() {
-        const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
-        if (this.predicate !== 'id') {
-            result.push('id');
-        }
+        const result = ['date,desc'];
         return result;
     }
 
@@ -111,6 +112,9 @@ export class StoryComponent implements OnInit, OnDestroy {
         this.totalItems = headers.get('X-Total-Count');
         for (let i = 0; i < data.length; i++) {
             this.stories.push(data[i]);
+            if (i < this.limitSize) {
+                this.popularStories.push(data[i])
+            }
         }
     }
 

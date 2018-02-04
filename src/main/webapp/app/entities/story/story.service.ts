@@ -47,6 +47,13 @@ export class StoryService {
         return this.http.delete(`${this.resourceUrl}/${id}`);
     }
 
+    getPopularStories(): Observable<Story[]> {
+        return this.http.get(`${this.resourceUrl}/popular`).map((res: Response) => {
+            const jsonResponse = res.json();
+            return jsonResponse;
+        })
+    }
+
     private convertResponse(res: Response): ResponseWrapper {
         const jsonResponse = res.json();
         const result = [];

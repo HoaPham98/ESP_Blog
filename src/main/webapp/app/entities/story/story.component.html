@@ -24,12 +24,12 @@
     <br/>
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1" *ngIf="stories">
+            <div class="col-lg-8 col-md-10" *ngIf="stories">
                 <table class="table">
                     <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
                     <tr *ngFor="let story of stories ;trackBy: trackId">
                         <h2 [routerLink]="['../story', story.id ]"><a href="javascript:void(0);">{{ story.title }}</a></h2>
-                        <small>Posted on {{story.date | date:'short'}} by {{story.user?.firstName}} {{story.user.lastName}}</small>
+                        <small>Posted on {{story.date | date:'dd/MM/yyyy'}} by {{story.user?.firstName}} {{story.user.lastName}}</small>
                         <div [innerHTML]=" limitHtml(story.content,230)"></div>
                         <div *jhiHasAnyAuthority="'ROLE_ADMIN'" class="btn-group mb-2 mt-1">
                             <button type="submit"
@@ -47,6 +47,18 @@
                                 <span class="d-none d-md-inline">Delete</span>
                             </button>
                         </div>
+                        <hr>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-lg-4 col-md-2">
+                <h4>Popular posts</h4>
+                <table class="table">
+                    <tbody>
+                    <tr *ngFor="let story of popularStories">
+                        <h6 [routerLink]="['../story', story.id ]"><a href="javascript:void(0);">{{ story.title }}</a></h6>
+                        <small>Posted on {{story.date | date:'dd/MM/yyyy'}}</small>
                         <hr>
                     </tr>
                     </tbody>
